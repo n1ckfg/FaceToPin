@@ -18,7 +18,7 @@ PVector mouthShape = new PVector(0,0);
 PVector position = new PVector(0,0,0);
 PVector orientation = new PVector(0,0,0);
 
-float scaleNum = 10;
+float oscScaleNum = 10;
 
 void oscSetup() {
   oscP5 = new OscP5(this, receivePort);  // start osc
@@ -114,27 +114,27 @@ println("mouth W: " + mouthShape.x + " H: " + mouthShape.y + "   position: " + p
 }
 
 void oscUse() {
-marker[0].p.x = 100; 
-marker[0].p.y = (sH/2)-(blinkL * scaleNum); 
+particle[0].p.x = 100; 
+particle[0].p.y = (sH/2)-(blinkL * oscScaleNum); 
 //~~~
-marker[1].p.x = 100+(marker[1].s.x); 
-marker[1].p.y = (sH/2)-(blinkR * scaleNum); 
+particle[1].p.x = 100+(particle[1].s.x); 
+particle[1].p.y = (sH/2)-(blinkR * oscScaleNum); 
 //~~~
-marker[2].p.x = 200; 
-marker[2].p.y = (sH/2)-(browL * scaleNum); 
+particle[2].p.x = 200; 
+particle[2].p.y = (sH/2)-(browL * oscScaleNum); 
 //~~~
-marker[3].p.x = 200+(marker[3].s.x); 
-marker[3].p.y = (sH/2)-(browR * scaleNum); 
+particle[3].p.x = 200+(particle[3].s.x); 
+particle[3].p.y = (sH/2)-(browR * oscScaleNum); 
 //~~~
-marker[4].p.x = (sH/2); 
-marker[4].p.y = (jaw * scaleNum); 
+particle[4].p.x = (sH/2); 
+particle[4].p.y = (jaw * oscScaleNum); 
 //~~~
-marker[5].p.x = (sH/2); 
-marker[5].p.y = (sH/2)-(nose * (2*scaleNum)); 
+particle[5].p.x = (sH/2); 
+particle[5].p.y = (sH/2)-(nose * (2*oscScaleNum)); 
 //~~~
-marker[6].p.x = abs(sW-position.x); 
-marker[6].p.y = position.y;
-println(numMarkers);
+particle[6].p.x = abs(sW-position.x); 
+particle[6].p.y = position.y;
+println(numParticles);
 }
 
 

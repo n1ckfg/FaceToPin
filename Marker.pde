@@ -1,8 +1,9 @@
-class Marker {
+class Particle {
+  PVector[] AEpath = new PVector[counterMax];
 
   PVector p, s;
 
-  Marker(float _px, float _py, float _sx, float _sy) {
+  Particle(float _px, float _py, float _sx, float _sy) {
     p = new PVector(_px, _py);
     s = new PVector(_sx, _sy);
   }
@@ -19,6 +20,9 @@ class Marker {
   void run() {
     update();
     render();
+    if(counter<counterMax){
+      AEpath[counter] = new PVector((p.x/sW)*dW,(p.y/sH)*dH);
+    }
   }
 }
 
