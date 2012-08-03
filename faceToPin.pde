@@ -7,7 +7,10 @@ int dW = 1920;
 int dH = 1080;
 
 int fps = 24;
-float durationFrames = 10 * fps;
+
+boolean movingFace = false;
+
+//float durationFrames = 30 * fps;
 boolean motionBlur = true;
 boolean applyEffects = false;
 boolean applySmoothing = true;
@@ -16,13 +19,18 @@ float weight = 18;
 float scaleNum  = 1.0 / (weight + 2);
 String scriptsFilePath = "scripts";
 
+String aeFileName = "AEscript";
+String aeFilePath = scriptsFilePath;
+String aeFileType = "jsx";
+
 Data dataAE;
 int counter=0;
-int counterMax = int(durationFrames);
+boolean record = false;
+boolean firstRun = true;
 
-int sizeNum = 10;
-int numParticles;
 Particle[] particle;
+PImage[] img;
+String[] imgNames = {"dot","eyeR","eyeL","browR","browL","jaw","nose","mouth"};
 
 void writeAllKeys(){
     AEkeysMain();  // After Effects, JavaScript
@@ -33,30 +41,42 @@ void setup(){
   size(sW,sH);
   frameRate(fps);
   oscSetup();
-  numParticles  = 7; //oscNames.length-2;
-  particle = new Particle[numParticles];
-  for (int i=0;i<numParticles;i++){
-  particle[i] = new Particle(sW/2,sH/2,sizeNum,sizeNum);
+  particle = new Particle[imgNames.length];
+  img = new PImage[imgNames.length];
+  for (int i=0;i<imgNames.length;i++){
+  img[i] = loadImage(imgNames[i] + ".png");
+  particle[i] = new Particle(sW/2,sH/2,img[i].width,img[i].height,img[i]);
   }
 }
 
 void draw(){
   oscUse();
-  if(found){
-    background(25);
+  if(record){
+    background(50,0,0);
   }else{
     background(0);
   }
-    for (int i=0;i<numParticles;i++){
+    for (int i=0;i<imgNames.length;i++){
+      if(i==0){
+      if(found){
+      particle[0].run();
+      }
+      }else{
       particle[i].run();
+      }
     }
     
-      if (counter<counterMax) {
+  if (record) {
     counter++;
-    println(counter + " / " + counterMax);
-  } 
-  else {
+  }else if(!record && !firstRun){
     writeAllKeys();
     exit();
   }
+}
+
+void keyPressed(){
+if(key==' '){
+record = !record;
+firstRun = false;
+}
 }
