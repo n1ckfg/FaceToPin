@@ -1,3 +1,7 @@
+String aeFileName = "AEscript";
+String aeFilePath = scriptsFilePath;
+String aeFileType = "jsx";
+
 void AEkeysMain() {
   AEkeysBegin();
       dataAE.add("\t" + "var facecap = myComp.layers.addSolid([0, 0, 0], \"facecap\", 640, 480, 1);" + "\r");

@@ -19,10 +19,6 @@ float weight = 18;
 float scaleNum  = 1.0 / (weight + 2);
 String scriptsFilePath = "scripts";
 
-String aeFileName = "AEscript";
-String aeFilePath = scriptsFilePath;
-String aeFileType = "jsx";
-
 Data dataAE;
 int counter=0;
 boolean record = false;
@@ -31,13 +27,20 @@ boolean firstRun = true;
 Particle[] particle;
 PImage[] img;
 String[] imgNames = {"dot","eyeR","eyeL","browR","browL","jaw","nose","mouth"};
+boolean writeAE = true;
+boolean writeMaya = false;
 
 void writeAllKeys(){
-    AEkeysMain();  // After Effects, JavaScript
-    //mayaKeysMain();  // Maya, Python
+    if(writeAE) AEkeysMain();  // After Effects, JavaScript
+    if(writeMaya) mayaKeysMain();  // Maya, Python
+}
+
+void initSettings(){
+  Settings settings = new Settings("settings.txt");
 }
 
 void setup(){
+  initSettings();
   size(sW,sH);
   frameRate(fps);
   oscSetup();
