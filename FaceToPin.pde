@@ -30,6 +30,8 @@ String[] imgNames = {"dot","eyeR","eyeL","browR","browL","jaw","nose","mouth"};
 boolean writeAE = true;
 boolean writeMaya = false;
 
+int startTime;
+
 void writeAllKeys(){
     if(writeAE) AEkeysMain();  // After Effects, JavaScript
     if(writeMaya) mayaKeysMain();  // Maya, Python
@@ -50,6 +52,7 @@ void setup(){
   img[i] = loadImage(imgNames[i] + ".png");
   particle[i] = new Particle(sW/2,sH/2,img[i].width,img[i].height,img[i]);
   }
+  startTime=millis();
 }
 
 void draw(){
@@ -72,9 +75,21 @@ void draw(){
   if (record) {
     counter++;
   }else if(!record && !firstRun){
-    writeAllKeys();
+    try{
+      writeAllKeys();
+    }catch (Exception e) {
+    println("No recorded keys to write.");
+    }
     exit();
   }
+  if(millis()<startTime+5000){
+    PFont font=createFont("Arial",24);
+    textFont(font);
+    textAlign(CENTER);
+    fill(255,200);
+    text("Press SPACE to start recording.",sW/2,sH/2,24);
+  }
+  
 }
 
 void keyPressed(){
